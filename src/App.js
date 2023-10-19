@@ -1,25 +1,131 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import Home from "./routes/Home";
+import Detail from "./routes/Detail";
+import "./App.module.css";
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { darkTheme, lightTheme } from './theme';
+import { useState } from "react";
+import sun from './image/sun.png';
+import moon from './image/moon.png';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: ${(props) => props.theme.mainBgColor};
+    color: ${(props) => props.theme.mainTextColor};
+    --bs-border-color: ${(props) => props.theme.borderColor};
+  }
+  h2 {
+    color: ${(props) => props.theme.mainTextColor};
+  }
+  #genreTab {
+    background-color: ${(props) => props.theme.genreTabBgColor};
+  }
+  #dropdown-basic-button {
+    background-color: ${(props) => props.theme.SortTopScrollBgColor};
+    color: ${(props) => props.theme.SortTopScrollColor};
+  }
+  #scrollToTop {
+    background-color: ${(props) => props.theme.SortTopScrollBgColor};
+    color: ${(props) => props.theme.SortTopScrollColor};
+  }
+  .nav {
+    --bs-nav-link-hover-color: ${(props) => props.theme.mainTextColor};
+  }
+  .navLink {
+    color: ${(props) => props.theme.linkColor};
+  }
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: ${(props) => props.theme.linkColor};
+  }
+  .nav-tabs {
+    --bs-nav-tabs-link-active-bg: ${(props) => props.theme.MainInfoTrailerBgColor};
+    --bs-nav-tabs-link-active-color: ${(props) => props.theme.MainInfoTrailerColor};
+    --bs-nav-tabs-link-active-border-color: ${(props) => props.theme.borderColor};
+    --bs-nav-tabs-border-color: ${(props) => props.theme.borderColor};
+    --bs-nav-tabs-link-hover-border-color: ${(props) => props.theme.MainInfoTrailerHoverBorderColor};
+  }
+  .accordion {
+    --bs-accordion-bg: ${(props) => props.theme.mainBgColor};
+    --bs-accordion-active-bg: ${(props) => props.theme.accordionBgColor};
+    --bs-accordion-active-color: ${(props) => props.theme.accordionColor};
+  }
+  .accordion-button {
+    color: ${(props) => props.theme.mainTextColor};
+  }
+  .accordion-item {
+    color: ${(props) => props.theme.mainTextColor};
+  }
+  .form-check-input:checked {
+    background-color: ${(props) => props.theme.linkColor};
+    border-color: ${(props) => props.theme.linkColor};
+  }
+  #rank {
+    color: ${(props) => props.theme.rankColor};
+  }
+  #darkLight .form-check-input {
+    background-color: #F3E2A9;
+    border-color: #F3E2A9;
+  }
+  #darkLight .form-check-input:checked {
+    background-color: #A9BCF5;
+    border-color: #A9BCF5;
+  }
+  #darkLight .form-switch .form-check-input {
+    background-image: url(${sun});
+  }
+  #darkLight .form-switch .form-check-input:checked {
+    background-image: url(${moon});
+  }
+`;
 
 function App() {
+  const localTheme = window.localStorage.getItem("theme");
+  const [themeMode, setThemeMode] = useState(localTheme || "lightTheme");
+  const theme = (themeMode === "lightTheme") ? lightTheme : darkTheme;
+
+  const localChecked = window.localStorage.getItem("checked");
+  const [checked, setChecked] = useState(localChecked || "false");
+
+  const toggleTheme = () => {
+    if(themeMode === "lightTheme") {
+      setThemeMode("darkTheme");
+      setChecked("true");
+      window.localStorage.setItem("theme", "darkTheme");
+      window.localStorage.setItem("checked", "true");
+    } else {
+      setThemeMode("lightTheme");
+      setChecked("false");
+      window.localStorage.setItem("theme", "lightTheme");
+      window.localStorage.setItem("checked", "false");
+    }
+  };
+
+  console.log(themeMode);
+  console.log(checked);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle/>
+      <Router>
+        <Switch>
+          <Route path="/movie/:id">
+            <Detail
+              checked={checked}
+              toggleTheme={toggleTheme}/>
+          </Route>
+          <Route path="/">
+            <Home 
+              checked={checked} 
+              toggleTheme={toggleTheme}/>
+          </Route>
+        </Switch>
+      </Router>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;

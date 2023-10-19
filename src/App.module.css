@@ -1,0 +1,170 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+ 
+.wrap {
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 200px;
+}
+
+.backgroundImage {
+    background-size: 100% 100%; 
+    position: absolute;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.mainInformationMobile {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.mainInformation {
+    display: flex;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.movieList {
+    width: 230px; 
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-left: 40px; 
+    margin-right: 40px;
+    display: inline-block;
+}
+
+.movieListElementOne {
+    width: 230px; 
+    margin: 3rem auto;
+}
+
+.scrollToTopFixed {
+    position: fixed;
+    right: 2%;
+    bottom: 25%;
+    z-index: 1
+}
+
+.topButton {
+    font-weight: bold;
+    font-size: 11px;
+    padding: 13px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer
+}
+
+.synopsisAll {
+    background-color: black;
+    color: white;
+    padding: 1rem;
+    height: 345px;
+    box-shadow: gray 3px 2px 2px;
+    border-radius: var(--bs-border-radius);
+}
+
+.synopsis {
+    overflow: hidden;
+    padding: 1rem;
+    padding-top: 0.25rem;
+    white-space: normal; 
+    text-overflow: ellipsis; 
+    height: 200px;
+}
+
+.synopsisRating {
+    margin-top: 70px;
+}
+
+.img {
+    box-shadow: gray 3px 2px 2px;
+    border-radius: var(--bs-border-radius);
+}
+
+.imgTitle {
+    overflow: hidden;
+    margin-top: 0.5rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.backGroundTitleRateImg {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 497px;
+    background-color: black;
+}
+
+.titleRateImgContainer {
+    color: white;
+    z-index: 1;
+}
+
+.titleRateImgElementsMobile {
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    width: 300px;
+}
+
+.titleRateImgTitleMobile {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-shadow: gray 3px 2px 2px;
+    font-size: 1.8em;
+}
+
+.titleRateImgGenreMobile {
+    margin: 0;
+    margin-bottom: 0.25rem;
+    text-align: center;
+    font-size: 1.01em;
+}
+
+.titleRateImgElementsPc {
+    width: 800px;
+}
+
+.titleRateImgElementsTablet {
+    width: 600px;
+}
+
+.titleRateImgTitlePc {
+    margin-bottom: 1.5rem;
+    text-shadow: gray 3px 2px 2px;
+    font-size: 3em;
+}
+
+.titleRateImgTitleTablet {
+    margin-bottom: 1.5rem;
+    text-shadow: gray 3px 2px 2px;
+    font-size: 2.3em;
+}
+
+.titleRateImgGenrePc {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.2em;
+}
+
+.titleRateImgGenreTablet {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.02em;
+}
+
+.titleRateImgDownloadLikeRating {
+    position: absolute;
+    bottom: 50px;
+}
