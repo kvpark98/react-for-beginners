@@ -11,7 +11,7 @@ function Header({checked, toggleTheme}) {
       variant="dark" 
       sticky="top">
       <Container fluid>
-        <Navbar.Brand href="/">
+        <Navbar.Brand href="/react-for-beginners">
           <img
             src={mainLogo}
             width="30"
