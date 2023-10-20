@@ -112,12 +112,12 @@ function App() {
       <GlobalStyle/>
       <Router>
         <Switch>
-          <Route path="/movie/:id">
+          <Route path="/react-for-beginners/movie/:id">
             <Detail
               checked={checked}
               toggleTheme={toggleTheme}/>
           </Route>
-          <Route path="/">
+          <Route path="/react-for-beginners">
             <Home 
               checked={checked} 
               toggleTheme={toggleTheme}/>

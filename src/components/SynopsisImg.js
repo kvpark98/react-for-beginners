@@ -12,7 +12,7 @@ function SynopsisImg({id, title, rating, medium_cover_image, description_full, r
 
     return (
         <Link 
-            to={`/movie/${id}`} 
+            to={`/react-for-beginners/movie/${id}`} 
             className="text-decoration-none text-dark">
             {onMouse ? 
                 <div onMouseOver={onMouseOver} 
