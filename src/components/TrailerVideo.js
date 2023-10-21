@@ -9,6 +9,7 @@ function TrailerVideo({trailer_code}) {
                 <div className="ratio ratio-16x9 m-auto" 
                      style={{maxWidth: 800}}>
                     <iframe 
+                        title="TrailerVideo"
                         src={`https://www.youtube.com/embed/${trailer_code}?rel=0&wmode=transparent&border=0&autoplay=1&iv_load_policy=3`}
                         allowFullScreen>    
                     </iframe>

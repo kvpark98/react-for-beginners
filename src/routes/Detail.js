@@ -45,7 +45,7 @@ function Detail({checked, toggleTheme}) {
             setLoading(false);
             setmovie(json.data.movie);
         });
-    }, []);
+    }, [id]);
 
     console.log(movie);
 

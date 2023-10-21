@@ -46,7 +46,7 @@ function SynopsisImg({id, title, rating, medium_cover_image, description_full, r
                     height="345"
                     className={styles.img}></img>}
             <h2 className={styles.imgTitle}>
-                <em id="rank" className={isRanked ? "pe-3" : ""}>{isRanked ? rank : null}</em> 
+                <em id="rank" className={isRanked ? "pe-2" : ""}>{isRanked ? rank : null}</em> 
                     {title}
             </h2>
         </Link>
