@@ -21,6 +21,9 @@ const GlobalStyle = createGlobalStyle`
   h2 {
     color: ${(props) => props.theme.mainTextColor};
   }
+  #moviesLength {
+    color: ${(props) => props.theme.rankColor};
+  }
   #genreTab {
     background-color: ${(props) => props.theme.genreTabBgColor};
   }

@@ -12,6 +12,13 @@ function ScrollToTop() {
         })
     };
 
+    const scrollToBottom = () => {
+        window.scrollTo({
+            bottom: 0,
+            behavior: "smooth"
+        })
+    };
+
     useEffect(() => {
         const handleShowButton = () => {
             window.scrollY > 100 ? setShowButton(true) : setShowButton(false);

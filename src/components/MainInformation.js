@@ -1,6 +1,7 @@
 import { Accordion, Container } from "react-bootstrap";
 import PropTypes from "prop-types";
 import styles from "../App.module.css";
+import BackButton from "./BackButton";
 
 function MainInformation({isMobile, runtime, date, description_full}) {
     return (
@@ -45,6 +46,7 @@ function MainInformation({isMobile, runtime, date, description_full}) {
                     :
                     null}
             </div>
+            <BackButton/>
         </Container>
     );
 };

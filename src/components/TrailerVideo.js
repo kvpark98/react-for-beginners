@@ -1,5 +1,6 @@
 import { Container } from "react-bootstrap";
 import PropTypes from "prop-types";
+import BackButton from "./BackButton";
 
 function TrailerVideo({trailer_code}) {
     return (
@@ -14,7 +15,8 @@ function TrailerVideo({trailer_code}) {
                         allowFullScreen>    
                     </iframe>
                 </div>
-            </div> 
+            </div>
+            <BackButton/> 
         </Container>
     );
 };

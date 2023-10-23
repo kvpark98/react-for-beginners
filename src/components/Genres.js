@@ -7,7 +7,7 @@ function Genres({movies, selectGenre}) {
         <Container>
             <h1 className="mb-0 mt-5">
                 <span>
-                    <em className="pe-2">{movies.length}</em>
+                    <em id="moviesLength" className="pe-2">{movies.length}</em>
                     Movies
                 </span>
             </h1>
