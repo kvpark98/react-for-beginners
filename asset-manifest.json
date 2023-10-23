@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/react-for-beginners/static/css/main.dd315957.css",
-    "main.js": "/react-for-beginners/static/js/main.0ad59973.js",
+    "main.css": "/react-for-beginners/static/css/main.c26c4a25.css",
+    "main.js": "/react-for-beginners/static/js/main.ffc4e232.js",
     "static/media/moon.png": "/react-for-beginners/static/media/moon.9878eadb94c6ca0aeb7c.png",
     "static/media/sun.png": "/react-for-beginners/static/media/sun.efb1c782455613e72665.png",
     "static/media/mainLogo.svg": "/react-for-beginners/static/media/mainLogo.f14562ed14b61a7f81c80572d2a92c9d.svg",
     "index.html": "/react-for-beginners/index.html",
-    "main.dd315957.css.map": "/react-for-beginners/static/css/main.dd315957.css.map",
-    "main.0ad59973.js.map": "/react-for-beginners/static/js/main.0ad59973.js.map"
+    "main.c26c4a25.css.map": "/react-for-beginners/static/css/main.c26c4a25.css.map",
+    "main.ffc4e232.js.map": "/react-for-beginners/static/js/main.ffc4e232.js.map"
   },
   "entrypoints": [
-    "static/css/main.dd315957.css",
-    "static/js/main.0ad59973.js"
+    "static/css/main.c26c4a25.css",
+    "static/js/main.ffc4e232.js"
   ]
 }
