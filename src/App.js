@@ -28,12 +28,16 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.theme.genreTabBgColor};
   }
   #dropdown-basic-button {
-    background-color: ${(props) => props.theme.SortTopScrollBgColor};
-    color: ${(props) => props.theme.SortTopScrollColor};
+    background-color: ${(props) => props.theme.SortBgColor};
+    color: ${(props) => props.theme.SortColor};
   }
   #scrollToTop {
-    background-color: ${(props) => props.theme.SortTopScrollBgColor};
-    color: ${(props) => props.theme.SortTopScrollColor};
+    background-color: ${(props) => props.theme.ScrollToTopBgColor};
+    color: ${(props) => props.theme.ScrollToTopColor};
+  }
+  #scrollToBottom {
+    background-color: ${(props) => props.theme.ScrollToBottomBgColor};
+    color: ${(props) => props.theme.ScrollToBottomColor};
   }
   .nav {
     --bs-nav-link-hover-color: ${(props) => props.theme.mainTextColor};

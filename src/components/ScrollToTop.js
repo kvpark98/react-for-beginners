@@ -13,10 +13,7 @@ function ScrollToTop() {
     };
 
     const scrollToBottom = () => {
-        window.scrollTo({
-            bottom: 0,
-            behavior: "smooth"
-        })
+        window.scroll(0, document.body.scrollHeight);
     };
 
     useEffect(() => {
@@ -39,6 +36,11 @@ function ScrollToTop() {
                         onClick={scrollToTop} 
                         className={styles.topButton}>
                     Top
+                </button>
+                <button id="scrollToBottom"
+                        onClick={scrollToBottom} 
+                        className={styles.BottomButton}>
+                    Bottom
                 </button>
             </div>
         )
