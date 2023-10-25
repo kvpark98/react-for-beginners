@@ -24,7 +24,7 @@ function TitleRateImg({title, year, genres, rating, medium_cover_image, like, co
                             {genres ?
                                 <div className={styles.titleRateImgGenreMobile}>
                                      {genres.map((genre) => 
-                                        <span key={genre} className={(genres.length > 1 && genre !== genres[genres.length - 1]) ? "badge bg-secondary fs-6 me-2" : "badge bg-secondary fs-6"}>
+                                        <span key={genre} className={(genres.length > 1 && genre !== genres[genres.length - 1]) ? "badge bg-secondary fs-6 me-2 mb-2" : "badge bg-secondary fs-6"}>
                                             {genre}
                                         </span>)}
                                 </div>
@@ -104,7 +104,7 @@ function TitleRateImg({title, year, genres, rating, medium_cover_image, like, co
                                      {genres.map((genre) => 
                                         <span 
                                             key={genre} 
-                                            className={(genres.length > 1 && genre !== genres[genres.length - 1]) ? "badge bg-secondary fs-6 me-2" : "badge bg-secondary fs-6"}>
+                                            className={(genres.length > 1 && genre !== genres[genres.length - 1]) ? "badge bg-secondary fs-6 me-2 mb-2" : "badge bg-secondary fs-6"}>
                                             {genre} 
                                         </span>)}
                                 </div>
