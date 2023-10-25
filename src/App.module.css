@@ -50,7 +50,7 @@ body {
     position: fixed;
     display: inline-grid;
     right: 1%;
-    bottom: 20%;
+    bottom: 15%;
     z-index: 1
 }
 
@@ -150,7 +150,7 @@ body {
 }
 
 .titleRateImgElementsPc {
-    width: 700px;
+    width: 800px;
 }
 
 .titleRateImgElementsTablet {
@@ -158,26 +158,24 @@ body {
 }
 
 .titleRateImgTitlePc {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     text-shadow: gray 3px 2px 2px;
     font-size: 3em;
 }
 
 .titleRateImgTitleTablet {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     text-shadow: gray 3px 2px 2px;
     font-size: 2.3em;
 }
 
 .titleRateImgGenrePc {
     margin: 0;
-    margin-bottom: 0.5rem;
     font-size: 1.2em;
 }
 
 .titleRateImgGenreTablet {
     margin: 0;
-    margin-bottom: 0.5rem;
     font-size: 1.02em;
 }
 

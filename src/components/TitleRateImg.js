@@ -12,18 +12,21 @@ function TitleRateImg({title, year, genres, rating, medium_cover_image, like, co
                             {title ?
                                 <div className={styles.titleRateImgTitleMobile}>
                                      {title}
-                                    <span> ({year ? year : null})</span>
+                                </div>
+                                :
+                                null}
+                            {year ? 
+                                <div className="d-flex justify-content-center mb-4">
+                                    <div className="badge bg-warning fs-6">{year}</div>
                                 </div>
                                 :
                                 null}
                             {genres ?
-                                <div>
-                                    <p className={styles.titleRateImgGenreMobile}> 
-                                        {genres.map((genre) => 
-                                            <span key={genre}>
-                                                {genre}{(genres.length > 1 && genre !== genres[genres.length - 1]) ? " / " : ""} 
-                                            </span>)}
-                                    </p>
+                                <div className={styles.titleRateImgGenreMobile}>
+                                     {genres.map((genre) => 
+                                        <span key={genre} className={(genres.length > 1 && genre !== genres[genres.length - 1]) ? "badge bg-secondary fs-6 me-2" : "badge bg-secondary fs-6"}>
+                                            {genre}
+                                        </span>)}
                                 </div>
                                 : 
                                 null}
@@ -86,19 +89,24 @@ function TitleRateImg({title, year, genres, rating, medium_cover_image, like, co
                                 <div {...(isPc && {className:`${styles.titleRateImgTitlePc}`})}
                                      {...(isTablet && {className:`${styles.titleRateImgTitleTablet}`})}>
                                      {title}
-                                    <span> ({year ? year : null})</span> 
+                                </div>
+                                :
+                                null}
+                            {year ? 
+                                <div className="badge bg-warning mb-3 fs-6">
+                                    {year}
                                 </div>
                                 :
                                 null}
                             {genres ?
-                                <div>
-                                    <p {...(isPc && {className:`${styles.titleRateImgGenrePc}`})}
-                                       {...(isTablet && {className:`${styles.titleRateImgGenreTablet}`})}> 
-                                       {genres.map((genre) => 
-                                            <span key={genre}>
-                                                {genre}{(genres.length > 1 && genre !== genres[genres.length - 1]) ? " / " : ""} 
-                                            </span>)}
-                                    </p>
+                                <div {...(isPc && {className:`${styles.titleRateImgGenrePc}`})}
+                                     {...(isTablet && {className:`${styles.titleRateImgGenreTablet}`})}>
+                                     {genres.map((genre) => 
+                                        <span 
+                                            key={genre} 
+                                            className={(genres.length > 1 && genre !== genres[genres.length - 1]) ? "badge bg-secondary fs-6 me-2" : "badge bg-secondary fs-6"}>
+                                            {genre} 
+                                        </span>)}
                                 </div>
                                 :
                                 null}
