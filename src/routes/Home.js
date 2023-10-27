@@ -31,6 +31,7 @@ function Home({checked, toggleTheme}) {
       setSorted(event.target.innerText);
     };
 
+    // 중복 불가한 rank property 만들어 Object에 저장하는 과정
     let rankArray = [];
     for (let index in movies) {
       rankArray.push(movies[index]);
@@ -42,22 +43,33 @@ function Home({checked, toggleTheme}) {
       rankArray[i].rank = i + 1;
     };
 
+    // Rank 클릭 시 rating 순으로 정렬되지만 같은 rating일 경우 download_count가 높은 것이 앞에 오도록 설정하는 과정
     if(isRanked) {
       movies.sort((a, b) => {
           return b.rating - a.rating
       });
     };
 
-    if(sorted === "Latest order") {
+    // 연도, 업로드 날짜 순으로 정렬하는 과정
+    if(sorted === "Latest year") {
       movies.sort((a, b) => {
-          return new Date(b.date_uploaded) - new Date(a.date_uploaded);
+        return new Date(b.year) - new Date(a.year);
       });
-    } else if(sorted === "Chronological order") {
+    } else if(sorted === "Chronological year") {
+      movies.sort((a, b) => {
+        return new Date(a.year) - new Date(b.year);
+      });
+    } else if(sorted === "Latest upload") {
+      movies.sort((a, b) => {
+        return new Date(b.date_uploaded) - new Date(a.date_uploaded);
+      });
+    } else if(sorted === "Chronological upload") {
       movies.sort((a, b) => {
         return new Date(a.date_uploaded) - new Date(b.date_uploaded);
       });
-    };
+    }
 
+    // MediumCoverImg가 없을 때 대체 이미지를 넣는 함수
     const handleMediumCoverImgError = (event) => {
         event.target.src = "https://t3.ftcdn.net/jpg/00/62/26/78/360_F_62267871_t1n8LSkrFSL2t1aQSyilyfVpC21wQx59.jpg";
     };
@@ -85,13 +97,13 @@ function Home({checked, toggleTheme}) {
         }
       } else {
         if(genre) { // Rank(X) + Genre(O) + Rating(X)
-            fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=year&genre=${genre}`).then(response => response.json()).then(json => {
+            fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=like_count&genre=${genre}`).then(response => response.json()).then(json => {
               setMovies(json.data.movies);
               setLoading(false);
             }  
           );
         } else { // Rank(X) + Genre(X) + Rating(X)
-            fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=year`).then(response => response.json()).then(json => {
+            fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=like_count`).then(response => response.json()).then(json => {
               setMovies(json.data.movies);
               setLoading(false);
             }  

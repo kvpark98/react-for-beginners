@@ -16,14 +16,24 @@ function RankSort({rank, sort, isRanked}) {
                     title="Sort" 
                     variant="dark">
                     <Dropdown.Item 
-                        eventKey="Latest order" 
+                        eventKey="Latest year" 
                         onClick={sort}>
-                            Latest order
+                        Latest year
                     </Dropdown.Item>
                     <Dropdown.Item 
-                        eventKey="Chronological order" 
+                        eventKey="Chronological year" 
                         onClick={sort}>
-                            Chronological order
+                            Chronological year
+                    </Dropdown.Item>
+                    <Dropdown.Item 
+                        eventKey="Latest upload" 
+                        onClick={sort}>
+                            Latest upload
+                    </Dropdown.Item>
+                    <Dropdown.Item 
+                        eventKey="Chronological upload" 
+                        onClick={sort}>
+                            Chronological upload
                     </Dropdown.Item>
                 </DropdownButton>
             </Form>
