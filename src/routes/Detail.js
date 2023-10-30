@@ -50,7 +50,7 @@ function Detail({checked, toggleTheme}) {
     console.log(movie);
 
     return (
-        <div className="h-100">
+        <div>
             <Header
                 checked={checked}
                 toggleTheme={toggleTheme}/>

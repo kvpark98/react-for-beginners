@@ -1,7 +1,7 @@
-import { Container, Dropdown, DropdownButton, Form } from "react-bootstrap";
+import { Button, Container, Dropdown, DropdownButton, Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-function RankSort({rank, sort, isRanked}) {
+function RankSort({rank, sortSelected, sortSelect, sorted, sort, isRanked}) {
     return (
         <Container>
             <Form className="d-flex justify-content-between">
@@ -10,32 +10,41 @@ function RankSort({rank, sort, isRanked}) {
                     id="custom-switch"
                     label="Rank"
                     onClick={rank}/>
-                <DropdownButton 
-                    {...(isRanked ? {disabled : true} : {})} 
-                    id="dropdown-basic-button" 
-                    title="Sort" 
-                    variant="dark">
-                    <Dropdown.Item 
-                        eventKey="Latest year" 
-                        onClick={sort}>
-                        Latest year
-                    </Dropdown.Item>
-                    <Dropdown.Item 
-                        eventKey="Chronological year" 
-                        onClick={sort}>
-                            Chronological year
-                    </Dropdown.Item>
-                    <Dropdown.Item 
-                        eventKey="Latest upload" 
-                        onClick={sort}>
-                            Latest upload
-                    </Dropdown.Item>
-                    <Dropdown.Item 
-                        eventKey="Chronological upload" 
-                        onClick={sort}>
-                            Chronological upload
-                    </Dropdown.Item>
-                </DropdownButton>
+                <div className="d-flex">
+                    <DropdownButton 
+                        {...(isRanked ? {disabled : true} : {})}
+                        id="dropdown-basic-button"
+                        title={sortSelected ? sortSelected : "Sort"} 
+                        variant="dark">
+                        <Dropdown.Item 
+                            eventKey="Year" 
+                            onClick={sortSelect}>
+                                Year
+                        </Dropdown.Item>
+                        <Dropdown.Item 
+                            eventKey="Upload Date" 
+                            onClick={sortSelect}>
+                                Upload Date
+                        </Dropdown.Item>
+                    </DropdownButton>
+                    <Button 
+                        {...(isRanked ? {disabled : true} : {})}
+                        id="dropdown-basic-button"
+                        className="ms-2"
+                        variant="dark"
+                        onClick={sort}
+                        title={!sorted ? "Descending order" : "Ascending order"}
+                        {...(sortSelected ? {} : {disabled:true})}>
+                            {!sorted ?
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-down" viewBox="0 0 16 16">
+                                    <path fillRule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+                                </svg>
+                                : 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-up" viewBox="0 0 16 16">
+                                    <path fillRule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                                </svg>}
+                    </Button>
+                </div>
             </Form>
         </Container>
     );
@@ -43,6 +52,9 @@ function RankSort({rank, sort, isRanked}) {
 
 RankSort.propTypes = {
     rank: PropTypes.func.isRequired,
+    sortSelected: PropTypes.string,
+    sortSelect: PropTypes.func.isRequired,
+    sorted: PropTypes.bool.isRequired,
     sort: PropTypes.func.isRequired,
     isRanked: PropTypes.bool.isRequired
 };

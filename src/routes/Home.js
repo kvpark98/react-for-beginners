@@ -26,9 +26,14 @@ function Home({checked, toggleTheme}) {
       setGenre(event.target.innerText);
     }; 
 
-    const [sorted, setSorted] = useState("");
-    const sort = (event) => {
-      setSorted(event.target.innerText);
+    const [sortSelected, setsortSelected] = useState("");
+    const sortSelect = (event) => {
+      setsortSelected(event.target.innerText);
+    };
+
+    const [sorted, setSorted] = useState(false);
+    const sort = () => {
+      setSorted(current => !current);
     };
 
     // 중복 불가한 rank property 만들어 Object에 저장하는 과정
@@ -51,22 +56,26 @@ function Home({checked, toggleTheme}) {
     };
 
     // 연도, 업로드 날짜 순으로 정렬하는 과정
-    if(sorted === "Latest year") {
-      movies.sort((a, b) => {
-        return new Date(b.year) - new Date(a.year);
-      });
-    } else if(sorted === "Chronological year") {
-      movies.sort((a, b) => {
-        return new Date(a.year) - new Date(b.year);
-      });
-    } else if(sorted === "Latest upload") {
-      movies.sort((a, b) => {
-        return new Date(b.date_uploaded) - new Date(a.date_uploaded);
-      });
-    } else if(sorted === "Chronological upload") {
-      movies.sort((a, b) => {
-        return new Date(a.date_uploaded) - new Date(b.date_uploaded);
-      });
+    if(sortSelected === "Year") {
+      if(!sorted) {
+        movies.sort((a, b) => {
+          return new Date(b.year) - new Date(a.year);
+        });
+      } else {
+        movies.sort((a, b) => {
+          return new Date(a.year) - new Date(b.year);
+        });
+      }
+    } else if(sortSelected === "Upload Date") {
+      if(!sorted) {
+        movies.sort((a, b) => {
+          return new Date(b.date_uploaded) - new Date(a.date_uploaded);
+        });
+      } else {
+        movies.sort((a, b) => {
+          return new Date(a.date_uploaded) - new Date(b.date_uploaded);
+        });
+      }
     }
 
     // MediumCoverImg가 없을 때 대체 이미지를 넣는 함수
@@ -76,12 +85,13 @@ function Home({checked, toggleTheme}) {
     
     console.log(isRanked);
     console.log(genre);
+    console.log(sortSelected);
     console.log(sorted);
     console.log(movies);
 
     useEffect(() => {
       if(isRanked) {
-        setSorted(null);
+        setsortSelected(null);
         if(genre) { // Rank(O) + Genre(O) + Rating(O)
             fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=download_count&genre=${genre}`).then(response => response.json()).then(json => {
               setMovies(json.data.movies);
@@ -113,7 +123,7 @@ function Home({checked, toggleTheme}) {
     }, [isRanked, genre]);
    
     return (
-      <div className="h-100">
+      <div>
         <Header
           checked={checked}
           toggleTheme={toggleTheme}/>
@@ -127,6 +137,9 @@ function Home({checked, toggleTheme}) {
                 selectGenre={selectGenre}/>
               <RankSort
                 rank={rank}
+                sortSelected={sortSelected}
+                sortSelect={sortSelect}
+                sorted={sorted}
                 sort={sort}
                 isRanked={isRanked}/>
               <MovieList
