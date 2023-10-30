@@ -123,7 +123,7 @@ function Home({checked, toggleTheme}) {
     }, [isRanked, genre]);
    
     return (
-      <div>
+      <div className="h-100">
         <Header
           checked={checked}
           toggleTheme={toggleTheme}/>
