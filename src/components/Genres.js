@@ -5,10 +5,10 @@ function Genres({movies, selectGenre}) {
     const genres = ["Action", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical", "Mystery", "Reality-TV", "Romance", "Sci-Fi", "Sport", "Talk-Show", "Thriller", "War", "Western"];
     return (
         <Container>
-            <h1 className="mb-0 mt-5">
-                <span>
-                    <em id="moviesLength" className="pe-2">{movies.length}</em>
-                    Movies
+            <h1 className="d-flex justify-content-between mb-0 mt-5">
+                <span>Movies</span>
+                <span id="moviesLength" className="badge">
+                    <em>{movies.length}</em>
                 </span>
             </h1>
             <Nav 

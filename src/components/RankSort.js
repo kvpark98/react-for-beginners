@@ -26,6 +26,11 @@ function RankSort({rank, sortSelected, sortSelect, sorted, sort, isRanked}) {
                             onClick={sortSelect}>
                                 Upload Date
                         </Dropdown.Item>
+                        <Dropdown.Item 
+                            eventKey="Runtime" 
+                            onClick={sortSelect}>
+                                Runtime
+                        </Dropdown.Item>
                     </DropdownButton>
                     <Button 
                         {...(isRanked ? {disabled : true} : {})}

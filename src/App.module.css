@@ -104,7 +104,7 @@ body {
 
 .img {
     box-shadow: gray 3px 2px 2px;
-    border-radius: var(--bs-border-radius);
+    border-radius: 0.375rem;
 }
 
 .imgTitle {

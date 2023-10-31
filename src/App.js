@@ -22,7 +22,8 @@ const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.theme.mainTextColor};
   }
   #moviesLength {
-    color: ${(props) => props.theme.rankColor};
+    background-color: ${(props) => props.theme.SortBgColor};
+    color: ${(props) => props.theme.SortColor};
   }
   #genreTab {
     background-color: ${(props) => props.theme.genreTabBgColor};
@@ -71,7 +72,7 @@ const GlobalStyle = createGlobalStyle`
     border-color: ${(props) => props.theme.linkColor};
   }
   #rank {
-    color: ${(props) => props.theme.rankColor};
+    background-color: #6610f2;
   }
   #darkLight .form-check-input {
     background-color: #F3E2A9;

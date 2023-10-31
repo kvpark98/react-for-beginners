@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
 import SynopsisImg from "./SynopsisImg";
 
-function MovieElement({id, title, rating, date, runtime, medium_cover_image, description_full, rank, isRanked, handleMediumCoverImgError}) {
+function MovieElement({id, title, year, rating, date, runtime, medium_cover_image, description_full, rank, isRanked, handleMediumCoverImgError}) {
     return (
         <div>
             <SynopsisImg
                 id={id}
                 title={title}
+                year={year}
                 rating={rating}
                 medium_cover_image={medium_cover_image}
                 description_full={description_full}
@@ -45,6 +46,7 @@ function MovieElement({id, title, rating, date, runtime, medium_cover_image, des
 MovieElement.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
     date: PropTypes.string,
     runtime: PropTypes.number,

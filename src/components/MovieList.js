@@ -30,6 +30,7 @@ function MovieList({movies, isRanked, handleMediumCoverImgError}) {
                         <MovieElement 
                             id={movie.id}
                             title={movie.title}
+                            year={movie.year}
                             rating={movie.rating}
                             date={movie.date_uploaded}
                             runtime={movie.runtime}

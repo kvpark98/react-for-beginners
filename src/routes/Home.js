@@ -55,27 +55,69 @@ function Home({checked, toggleTheme}) {
       });
     };
 
-    // 연도, 업로드 날짜 순으로 정렬하는 과정
+    // 연도, 업로드 날짜, 상영 시간을 기준으로 정렬하는 과정
     if(sortSelected === "Year") {
       if(!sorted) {
         movies.sort((a, b) => {
-          return new Date(b.year) - new Date(a.year);
+          if(a.year === b.year) {
+              return new Date(b.date_uploaded) - new Date(a.date_uploaded);
+          } else {
+            return new Date(b.year) - new Date(a.year);
+          }
         });
       } else {
         movies.sort((a, b) => {
-          return new Date(a.year) - new Date(b.year);
+          if(a.year === b.year) {
+              return new Date(a.date_uploaded) - new Date(b.date_uploaded);
+          } else {
+            return new Date(a.year) - new Date(b.year);
+          }
         });
       }
     } else if(sortSelected === "Upload Date") {
-      if(!sorted) {
-        movies.sort((a, b) => {
-          return new Date(b.date_uploaded) - new Date(a.date_uploaded);
-        });
-      } else {
-        movies.sort((a, b) => {
-          return new Date(a.date_uploaded) - new Date(b.date_uploaded);
-        });
-      }
+        if(!sorted) {
+          movies.sort((a, b) => {
+            if(a.date_uploaded && a.date_uploaded.slice(0, 10) === b.date_uploaded.slice(0, 10)) {
+              return new Date(b.year) - new Date(a.year);
+            } else {
+              return new Date(b.date_uploaded) - new Date(a.date_uploaded);
+            }
+          });
+        } else {
+          movies.sort((a, b) => {
+            if(a.date_uploaded && a.date_uploaded.slice(0, 10) === b.date_uploaded.slice(0, 10)) {
+              return new Date(a.year) - new Date(b.year);
+            } else {
+              return new Date(a.date_uploaded) - new Date(b.date_uploaded);
+            }
+          });
+        }
+    } else if(sortSelected === "Runtime") {
+        if(!sorted) {
+          movies.sort((a, b) => {
+            if(a.runtime === b.runtime) {
+              if(a.year === b.year) {
+                return new Date(b.date_uploaded) - new Date(a.date_uploaded);
+              } else {
+                return new Date(b.year) - new Date(a.year);
+              }
+            } else {
+              return b.runtime - a.runtime;
+            }
+          });
+        } else {
+          movies.sort((a, b) => {
+            if(a.runtime === b.runtime) {
+              if(a.year === b.year) {
+                return new Date(a.date_uploaded) - new Date(b.date_uploaded);
+              } else {
+                return new Date(a.year) - new Date(b.year);
+              }
+            } else {
+              return a.runtime - b.runtime;
+            }
+          });
+        }
     }
 
     // MediumCoverImg가 없을 때 대체 이미지를 넣는 함수
@@ -83,11 +125,11 @@ function Home({checked, toggleTheme}) {
         event.target.src = "https://t3.ftcdn.net/jpg/00/62/26/78/360_F_62267871_t1n8LSkrFSL2t1aQSyilyfVpC21wQx59.jpg";
     };
     
-    console.log(isRanked);
-    console.log(genre);
-    console.log(sortSelected);
-    console.log(sorted);
-    console.log(movies);
+    // console.log(isRanked);
+    // console.log(genre);
+    // console.log(sortSelected);
+    // console.log(sorted);
+    // console.log(movies);
 
     useEffect(() => {
       if(isRanked) {

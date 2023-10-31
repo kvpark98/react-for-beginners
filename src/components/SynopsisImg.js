@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import styles from "../App.module.css";
 
-function SynopsisImg({id, title, rating, medium_cover_image, description_full, rank, isRanked, handleMediumCoverImgError}) {
+function SynopsisImg({id, title, year, rating, medium_cover_image, description_full, rank, isRanked, handleMediumCoverImgError}) {
     const [onMouse, setOnMouse] = useState(false);
 
     const onMouseOver = () => {setOnMouse(true)};
@@ -36,18 +36,34 @@ function SynopsisImg({id, title, rating, medium_cover_image, description_full, r
                     </div>
                 </div> 
                 : 
-                <img 
-                    src={medium_cover_image} 
-                    alt={title} 
-                    onError={handleMediumCoverImgError}
-                    onMouseOver={onMouseOver} 
-                    onMouseOut={onMouseOut}
-                    width="230"
-                    height="345"
-                    className={styles.img}></img>}
+                <div className="position-relative">
+                    <img 
+                        src={medium_cover_image} 
+                        alt={title} 
+                        onError={handleMediumCoverImgError}
+                        onMouseOver={onMouseOver} 
+                        onMouseOut={onMouseOut}
+                        width="230"
+                        height="345"
+                        className={styles.img}>
+                    </img>
+                    {isRanked && 
+                        <div 
+                            id="rank" 
+                            className="position-absolute top-0 start-0 badge"
+                            onMouseOver={onMouseOver} 
+                            onMouseOut={onMouseOut}>
+                            <em className="fs-3">{isRanked ? rank : null}</em>
+                        </div>}
+                    <div 
+                        className="position-absolute bottom-0 end-0 badge bg-warning"
+                        onMouseOver={onMouseOver} 
+                        onMouseOut={onMouseOut}>
+                        <span className="fs-5">{year}</span>
+                    </div>
+                </div>}
             <h2 className={styles.imgTitle}>
-                <em id="rank" className={isRanked ? "pe-2" : ""}>{isRanked ? rank : null}</em> 
-                    {title}
+                {title}
             </h2>
         </Link>
     );
@@ -56,6 +72,7 @@ function SynopsisImg({id, title, rating, medium_cover_image, description_full, r
 SynopsisImg.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
     medium_cover_image: PropTypes.string,
     description_full: PropTypes.string,
