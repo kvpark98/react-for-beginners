@@ -174,7 +174,7 @@ function TitleRateImg({title, year, genres, rating, medium_cover_image, like, co
 
 TitleRateImg.propTypes = {
     title: PropTypes.string.isRequired,
-    year: PropTypes.number,
+    year: PropTypes.number.isRequired,
     genres: PropTypes.array.isRequired,
     rating: PropTypes.number.isRequired,
     medium_cover_image: PropTypes.string,

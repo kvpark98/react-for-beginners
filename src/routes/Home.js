@@ -15,12 +15,6 @@ function Home({checked, toggleTheme}) {
 
     const [movies, setMovies] = useState([]);
 
-    const [isRanked, setIsRanked] = useState(false);
-    
-    const rank = () => {
-      setIsRanked(current => !current);
-    };
-
     const [genre, setGenre] = useState("");
     const selectGenre = (event) => {
       setGenre(event.target.innerText);
@@ -34,6 +28,11 @@ function Home({checked, toggleTheme}) {
     const [sorted, setSorted] = useState(false);
     const sort = () => {
       setSorted(current => !current);
+    };
+    
+    const [isRanked, setIsRanked] = useState(false);
+    const rank = () => {
+      setIsRanked(current => !current);
     };
 
     // 중복 불가한 rank property 만들어 Object에 저장하는 과정

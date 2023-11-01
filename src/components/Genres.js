@@ -7,7 +7,8 @@ function Genres({movies, selectGenre}) {
         <Container>
             <h1 className="d-flex justify-content-between mb-0 mt-5">
                 <span>Movies</span>
-                <span id="moviesLength" className="badge">
+                <span 
+                    className={(window.localStorage.getItem("theme") === "lightTheme") ? "badge bg-dark" : "badge bg-light text-dark"}>
                     <em>{movies.length}</em>
                 </span>
             </h1>
