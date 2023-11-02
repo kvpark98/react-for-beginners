@@ -1,8 +1,9 @@
 import { Container, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-function Genres({movies, selectGenre}) {
+function Genres({movies, genreSelected, selectGenre}) {
     const genres = ["Action", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical", "Mystery", "Reality-TV", "Romance", "Sci-Fi", "Sport", "Talk-Show", "Thriller", "War", "Western"];
+
     return (
         <Container>
             <h1 className="d-flex justify-content-between mb-0 mt-5">
@@ -22,7 +23,7 @@ function Genres({movies, selectGenre}) {
                         <Nav.Link 
                             eventKey={genre} 
                             onClick={selectGenre} 
-                            className="navLink">
+                            className={(genreSelected === genre) ? "navLink active" : "navLink"}>
                                 {genre}
                         </Nav.Link>
                     </Nav.Item>)}
@@ -33,6 +34,7 @@ function Genres({movies, selectGenre}) {
 
 Genres.propTypes = {
     movies: PropTypes.array.isRequired,
+    genreSelected: PropTypes.string.isRequired,
     selectGenre: PropTypes.func.isRequired
 };
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import styles from "../App.module.css";
+import { useHistory } from "react-router-dom";
 
 function SynopsisImg({id, title, year, rating, medium_cover_image, description_full, rank, isRanked, handleMediumCoverImgError}) {
     const [onMouse, setOnMouse] = useState(false);
@@ -10,9 +11,11 @@ function SynopsisImg({id, title, year, rating, medium_cover_image, description_f
 
     const onMouseOut = () => {setOnMouse(false)};
 
+    const history = useHistory();
+
     return (
         <Link 
-            to={`/react-for-beginners/movie/${id}`} 
+            to={{pathname: `/react-for-beginners/movie/${id}`, state: {prevPath: history.location.pathname}}} 
             className="text-decoration-none text-dark">
             {onMouse ? 
                 <div onMouseOver={onMouseOver} 
@@ -47,7 +50,7 @@ function SynopsisImg({id, title, year, rating, medium_cover_image, description_f
                         height="345"
                         className={styles.img}>
                     </img>
-                    {isRanked && 
+                    {isRanked === "yes" && 
                         <div 
                             id="rank" 
                             className="position-absolute top-0 start-0 badge"
@@ -77,7 +80,7 @@ SynopsisImg.propTypes = {
     medium_cover_image: PropTypes.string,
     description_full: PropTypes.string,
     rank: PropTypes.number.isRequired,
-    isRanked: PropTypes.bool.isRequired,
+    isRanked: PropTypes.string.isRequired,
     handleMediumCoverImgError: PropTypes.func.isRequired
 };
 

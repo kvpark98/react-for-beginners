@@ -15,9 +15,11 @@ function Home({checked, toggleTheme}) {
 
     const [movies, setMovies] = useState([]);
 
-    const [genre, setGenre] = useState("");
+    const localGenre = window.sessionStorage.getItem("genre");
+    const [genreSelected, setGenreSelected] = useState(localGenre || "Action");
     const selectGenre = (event) => {
-      setGenre(event.target.innerText);
+      setGenreSelected(event.target.innerText);
+      window.sessionStorage.setItem("genre", event.target.innerText);
     }; 
 
     const [sortSelected, setsortSelected] = useState("");
@@ -30,9 +32,16 @@ function Home({checked, toggleTheme}) {
       setSorted(current => !current);
     };
     
-    const [isRanked, setIsRanked] = useState(false);
+    const localRanked = window.sessionStorage.getItem("isRanked");
+    const [isRanked, setIsRanked] = useState(localRanked || "no");
     const rank = () => {
-      setIsRanked(current => !current);
+      if(isRanked === "no") {
+        setIsRanked("yes");
+        window.sessionStorage.setItem("isRanked", "yes");
+      } else {
+        setIsRanked("no");
+        window.sessionStorage.setItem("isRanked", "no");
+      }
     };
 
     // 중복 불가한 rank property 만들어 Object에 저장하는 과정
@@ -48,7 +57,7 @@ function Home({checked, toggleTheme}) {
     };
 
     // Rank 클릭 시 rating 순으로 정렬되지만 같은 rating일 경우 download_count가 높은 것이 앞에 오도록 설정하는 과정
-    if(isRanked) {
+    if(isRanked === "yes") {
       movies.sort((a, b) => {
           return b.rating - a.rating
       });
@@ -117,6 +126,16 @@ function Home({checked, toggleTheme}) {
             }
           });
         }
+    } else if(sortSelected === "Title") {
+      if(!sorted) {
+        movies.sort((a, b) => {
+          return (a.title < b.title) ? 1 : (a.title > b.title ? -1 : 0);
+        });
+      } else {
+        movies.sort((a, b) => {
+          return (a.title < b.title) ? -1 : (a.title > b.title ? 1 : 0);
+        });
+      }
     }
 
     // MediumCoverImg가 없을 때 대체 이미지를 넣는 함수
@@ -125,16 +144,16 @@ function Home({checked, toggleTheme}) {
     };
     
     // console.log(isRanked);
-    // console.log(genre);
+    console.log(genreSelected);
     // console.log(sortSelected);
     // console.log(sorted);
     // console.log(movies);
 
     useEffect(() => {
-      if(isRanked) {
+      if(isRanked === "yes") {
         setsortSelected(null);
-        if(genre) { // Rank(O) + Genre(O) + Rating(O)
-            fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=download_count&genre=${genre}`).then(response => response.json()).then(json => {
+        if(genreSelected) { // Rank(O) + Genre(O) + Rating(O)
+            fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=download_count&genre=${genreSelected}`).then(response => response.json()).then(json => {
               setMovies(json.data.movies);
               setLoading(false);
             }  
@@ -147,8 +166,8 @@ function Home({checked, toggleTheme}) {
           );
         }
       } else {
-        if(genre) { // Rank(X) + Genre(O) + Rating(X)
-            fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=like_count&genre=${genre}`).then(response => response.json()).then(json => {
+        if(genreSelected) { // Rank(X) + Genre(O) + Rating(X)
+            fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=like_count&genre=${genreSelected}`).then(response => response.json()).then(json => {
               setMovies(json.data.movies);
               setLoading(false);
             }  
@@ -161,7 +180,7 @@ function Home({checked, toggleTheme}) {
           );
         }  
       }
-    }, [isRanked, genre]);
+    }, [isRanked, genreSelected]);
    
     return (
       <div className="h-100">
@@ -175,6 +194,7 @@ function Home({checked, toggleTheme}) {
             <Container fluid>
               <Genres
                 movies={movies}
+                genreSelected={genreSelected}
                 selectGenre={selectGenre}/>
               <RankSort
                 rank={rank}

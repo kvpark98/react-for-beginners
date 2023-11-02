@@ -9,13 +9,19 @@ function RankSort({rank, sortSelected, sortSelect, sorted, sort, isRanked}) {
                     type="switch"
                     id="custom-switch"
                     label="Rank"
-                    onClick={rank}/>
+                    onClick={rank}
+                    {...(isRanked === "yes" ? {defaultChecked:true} : {defaultChecked:false})}/>
                 <div className="d-flex">
                     <DropdownButton 
-                        {...(isRanked ? {disabled : true} : {})}
+                        {...(isRanked === "yes" ? {disabled : true} : {})}
                         id="dropdown-basic-button"
                         title={sortSelected ? sortSelected : "Sort"} 
                         variant="dark">
+                        <Dropdown.Item 
+                            eventKey="Title" 
+                            onClick={sortSelect}>
+                                Title
+                        </Dropdown.Item>
                         <Dropdown.Item 
                             eventKey="Year" 
                             onClick={sortSelect}>
@@ -33,7 +39,7 @@ function RankSort({rank, sortSelected, sortSelect, sorted, sort, isRanked}) {
                         </Dropdown.Item>
                     </DropdownButton>
                     <Button 
-                        {...(isRanked ? {disabled : true} : {})}
+                        {...(isRanked === "yes" ? {disabled : true} : {})}
                         id="dropdown-basic-button"
                         className="ms-2"
                         variant="dark"
@@ -61,7 +67,7 @@ RankSort.propTypes = {
     sortSelect: PropTypes.func.isRequired,
     sorted: PropTypes.bool.isRequired,
     sort: PropTypes.func.isRequired,
-    isRanked: PropTypes.bool.isRequired
+    isRanked: PropTypes.string.isRequired
 };
 
 export default RankSort;

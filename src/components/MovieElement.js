@@ -53,7 +53,7 @@ MovieElement.propTypes = {
     medium_cover_image: PropTypes.string,
     description_full: PropTypes.string,
     rank: PropTypes.number.isRequired,
-    isRanked: PropTypes.bool.isRequired,
+    isRanked: PropTypes.string.isRequired,
     handleMediumCoverImgError: PropTypes.func.isRequired
 };
 

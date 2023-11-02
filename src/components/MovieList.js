@@ -48,7 +48,7 @@ function MovieList({movies, isRanked, handleMediumCoverImgError}) {
 
 MovieList.propTypes = {
     movies: PropTypes.array.isRequired,
-    isRanked: PropTypes.bool.isRequired,
+    isRanked: PropTypes.string.isRequired,
     handleMediumCoverImgError: PropTypes.func.isRequired
 };
 
