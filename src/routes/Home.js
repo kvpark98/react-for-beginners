@@ -7,33 +7,42 @@ import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
 import RankSort from "../components/RankSort";
 import Genres from "../components/Genres";
-import ScrollToTop from "../components/ScrollToTop";
 import PropTypes from "prop-types";
+import ScrollHome from "../components/ScrollHome";
 
 function Home({checked, toggleTheme}) {
     const [loading, setLoading] = useState(true);
 
     const [movies, setMovies] = useState([]);
 
-    const localGenre = window.sessionStorage.getItem("genre");
-    const [genreSelected, setGenreSelected] = useState(localGenre || "Action");
+    const sessionGenre = window.sessionStorage.getItem("genre");
+    const [genreSelected, setGenreSelected] = useState(sessionGenre || "Action");
     const selectGenre = (event) => {
       setGenreSelected(event.target.innerText);
       window.sessionStorage.setItem("genre", event.target.innerText);
     }; 
 
-    const [sortSelected, setsortSelected] = useState("");
+    const sessionSortSelected = window.sessionStorage.getItem("sortSelected");
+    const [sortSelected, setsortSelected] = useState(sessionSortSelected || "");
     const sortSelect = (event) => {
       setsortSelected(event.target.innerText);
+      window.sessionStorage.setItem("sortSelected", event.target.innerText);
     };
 
-    const [sorted, setSorted] = useState(false);
+    const sessionSorted = window.sessionStorage.getItem("sorted");
+    const [sorted, setSorted] = useState(sessionSorted || "descending");
     const sort = () => {
-      setSorted(current => !current);
+      if(sorted === "descending") {
+        setSorted("ascending");
+        window.sessionStorage.setItem("sorted", "ascending");
+      } else {
+        setSorted("descending");
+        window.sessionStorage.setItem("sorted", "descending");
+      }
     };
     
-    const localRanked = window.sessionStorage.getItem("isRanked");
-    const [isRanked, setIsRanked] = useState(localRanked || "no");
+    const sessionRanked = window.sessionStorage.getItem("isRanked");
+    const [isRanked, setIsRanked] = useState(sessionRanked || "no");
     const rank = () => {
       if(isRanked === "no") {
         setIsRanked("yes");
@@ -65,7 +74,7 @@ function Home({checked, toggleTheme}) {
 
     // 연도, 업로드 날짜, 상영 시간을 기준으로 정렬하는 과정
     if(sortSelected === "Year") {
-      if(!sorted) {
+      if(sorted === "descending") {
         movies.sort((a, b) => {
           if(a.year === b.year) {
               return new Date(b.date_uploaded) - new Date(a.date_uploaded);
@@ -83,7 +92,7 @@ function Home({checked, toggleTheme}) {
         });
       }
     } else if(sortSelected === "Upload Date") {
-        if(!sorted) {
+        if(sorted === "descending") {
           movies.sort((a, b) => {
             if(a.date_uploaded && a.date_uploaded.slice(0, 10) === b.date_uploaded.slice(0, 10)) {
               return new Date(b.year) - new Date(a.year);
@@ -101,7 +110,7 @@ function Home({checked, toggleTheme}) {
           });
         }
     } else if(sortSelected === "Runtime") {
-        if(!sorted) {
+        if(sorted === "descending") {
           movies.sort((a, b) => {
             if(a.runtime === b.runtime) {
               if(a.year === b.year) {
@@ -127,7 +136,7 @@ function Home({checked, toggleTheme}) {
           });
         }
     } else if(sortSelected === "Title") {
-      if(!sorted) {
+      if(sorted === "descending") {
         movies.sort((a, b) => {
           return (a.title < b.title) ? 1 : (a.title > b.title ? -1 : 0);
         });
@@ -147,11 +156,13 @@ function Home({checked, toggleTheme}) {
     console.log(genreSelected);
     // console.log(sortSelected);
     // console.log(sorted);
-    // console.log(movies);
+    console.log(movies);
 
     useEffect(() => {
       if(isRanked === "yes") {
         setsortSelected(null);
+        window.sessionStorage.removeItem("sortSelected");
+        window.sessionStorage.removeItem("sorted");
         if(genreSelected) { // Rank(O) + Genre(O) + Rating(O)
             fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=download_count&genre=${genreSelected}`).then(response => response.json()).then(json => {
               setMovies(json.data.movies);
@@ -207,7 +218,7 @@ function Home({checked, toggleTheme}) {
                 movies={movies}
                 isRanked={isRanked}
                 handleMediumCoverImgError={handleMediumCoverImgError}/>
-              <ScrollToTop/>
+              <ScrollHome/>
             </Container>
             <Footer/>
           </div>}       

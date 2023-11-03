@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import styles from "../App.module.css";
 
-function ScrollToTop() {
+function ScrollDetail() {
     const [showButton, setShowButton] = useState(false);
 
     const scrollToTop = () => {
@@ -18,7 +18,8 @@ function ScrollToTop() {
 
     useEffect(() => {
         const handleShowButton = () => {
-            window.scrollY > 100 ? setShowButton(true) : setShowButton(false);
+            const scrollLocation = window.scrollY;
+            scrollLocation > 100 ? setShowButton(true) : setShowButton(false);
         };
         const timer = setInterval(() => {
             window.addEventListener('scroll', handleShowButton);
@@ -47,4 +48,4 @@ function ScrollToTop() {
     );
 };
 
-export default ScrollToTop;
+export default ScrollDetail;

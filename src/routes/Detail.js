@@ -10,8 +10,8 @@ import TrailerVideo from "../components/TrailerVideo";
 import MainInfoTrailer from "../components/MainInfoTrailer";
 import Loading from "../components/Loading";
 import { useMediaQuery } from "react-responsive";
-import ScrollToTop from "../components/ScrollToTop";
 import PropTypes from "prop-types";
+import ScrollDetail from "../components/ScrollDetail";
 
 function Detail({checked, toggleTheme}) {
     const isPc = useMediaQuery({
@@ -94,7 +94,7 @@ function Detail({checked, toggleTheme}) {
                                     date={movie.date_uploaded}
                                     description_full={movie.description_full}/>}
                         </div>
-                        <ScrollToTop/>
+                        <ScrollDetail/>
                     </div>
                     <Footer/>
                 </div>}
