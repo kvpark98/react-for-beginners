@@ -2,8 +2,9 @@ import MovieElement from "./MovieElement";
 import { useMediaQuery } from "react-responsive";
 import PropTypes from "prop-types";
 import styles from "../App.module.css";
+import NoResult from "./NoResult";
 
-function MovieList({movies, isRanked, handleMediumCoverImgError}) {
+function MovieList({movies, userInput, searchedMovies, isRanked, handleMediumCoverImgError}) {
     const elementFour = useMediaQuery({
         query : "(min-width : 1400px)"
     });
@@ -24,23 +25,44 @@ function MovieList({movies, isRanked, handleMediumCoverImgError}) {
                     {...(elementThree && {style:{maxWidth: 930}})}
                     {...(elementTwo && {style:{maxWidth: 620}})}
                     {...(elementOne && {style:{maxWidth: 310}})}>
-                {movies.map((movie) => 
-                    <div {...(elementOne ? {className:`${styles.movieListElementOne}`} : {className:`${styles.movieList}`})}
-                         key={movie.id}>
-                        <MovieElement 
-                            id={movie.id}
-                            title={movie.title}
-                            year={movie.year}
-                            rating={movie.rating}
-                            date={movie.date_uploaded}
-                            runtime={movie.runtime}
-                            medium_cover_image={movie.medium_cover_image}
-                            description_full={movie.description_full}
-                            rank={movie.rank}
-                            isRanked={isRanked}
-                            handleMediumCoverImgError={handleMediumCoverImgError}/>
-                    </div>
-                )}
+                {userInput ? 
+                    (searchedMovies.length === 0 ? 
+                        <NoResult
+                            userInput={userInput}/>
+                        :
+                        searchedMovies.map((movie) => 
+                            <div {...(elementOne ? {className:`${styles.movieListElementOne}`} : {className:`${styles.movieList}`})}
+                                key={movie.id}>
+                                <MovieElement 
+                                    id={movie.id}
+                                    title={movie.title}
+                                    year={movie.year}
+                                    rating={movie.rating}
+                                    date={movie.date_uploaded}
+                                    runtime={movie.runtime}
+                                    medium_cover_image={movie.medium_cover_image}
+                                    description_full={movie.description_full}
+                                    rank={movie.rank}
+                                    isRanked={isRanked}
+                                    handleMediumCoverImgError={handleMediumCoverImgError}/>
+                            </div>))
+                    : 
+                    movies.map((movie) => 
+                        <div {...(elementOne ? {className:`${styles.movieListElementOne}`} : {className:`${styles.movieList}`})}
+                            key={movie.id}>
+                            <MovieElement 
+                                id={movie.id}
+                                title={movie.title}
+                                year={movie.year}
+                                rating={movie.rating}
+                                date={movie.date_uploaded}
+                                runtime={movie.runtime}
+                                medium_cover_image={movie.medium_cover_image}
+                                description_full={movie.description_full}
+                                rank={movie.rank}
+                                isRanked={isRanked}
+                                handleMediumCoverImgError={handleMediumCoverImgError}/>
+                        </div>)}
             </div>
         </div>
     );
@@ -48,6 +70,8 @@ function MovieList({movies, isRanked, handleMediumCoverImgError}) {
 
 MovieList.propTypes = {
     movies: PropTypes.array.isRequired,
+    userInput: PropTypes.string,
+    searchedMovies: PropTypes.array,
     isRanked: PropTypes.string.isRequired,
     handleMediumCoverImgError: PropTypes.func.isRequired
 };

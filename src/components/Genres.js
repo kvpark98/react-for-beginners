@@ -1,18 +1,28 @@
-import { Container, Nav } from "react-bootstrap";
+import { Container, Form, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-function Genres({movies, genreSelected, selectGenre}) {
+function Genres({movies, userInput, searchedMovies, genreSelected, selectGenre, getValue, isRanked}) {
     const genres = ["Action", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical", "Mystery", "Reality-TV", "Romance", "Sci-Fi", "Sport", "Talk-Show", "Thriller", "War", "Western"];
 
     return (
         <Container>
-            <h1 className="d-flex justify-content-between mb-0 mt-5">
-                <span>Movies</span>
-                <span 
-                    className={(window.localStorage.getItem("theme") === "lightTheme") ? "badge bg-dark" : "badge bg-light text-dark"}>
-                    <em>{movies.length}</em>
-                </span>
-            </h1>
+            <div className="d-flex justify-content-between mb-0 mt-5">
+                <Form>
+                    <Form.Group>
+                        <Form.Control
+                            id="search" 
+                            type="email" 
+                            placeholder="Search..."
+                            value={userInput ? userInput : ""}
+                            onChange={getValue}
+                            {...(isRanked === "yes" ? {disabled:true} : {})}/>
+                    </Form.Group>
+                </Form>
+                <div 
+                    className={(window.localStorage.getItem("theme") === "lightTheme") ? "badge bg-dark fs-4 ms-3" : "badge bg-light text-dark fs-4 ms-3"}>
+                    <em>{userInput ? searchedMovies.length : movies.length}</em>
+                </div>
+            </div>
             <Nav 
                 justify 
                 variant="pills" 
@@ -34,8 +44,12 @@ function Genres({movies, genreSelected, selectGenre}) {
 
 Genres.propTypes = {
     movies: PropTypes.array.isRequired,
+    userInput: PropTypes.string,
+    searchedMovies: PropTypes.array,
     genreSelected: PropTypes.string.isRequired,
-    selectGenre: PropTypes.func.isRequired
+    selectGenre: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    isRanked: PropTypes.string.isRequired,
 };
 
 export default Genres;

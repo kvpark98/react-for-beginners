@@ -46,6 +46,7 @@ function Home({checked, toggleTheme}) {
     const rank = () => {
       if(isRanked === "no") {
         setIsRanked("yes");
+        document.getElementById("search").value = "";
         window.sessionStorage.setItem("isRanked", "yes");
       } else {
         setIsRanked("no");
@@ -147,6 +148,18 @@ function Home({checked, toggleTheme}) {
       }
     }
 
+    // 검색 과정
+    const sessionUserInput = window.sessionStorage.getItem("search");
+    const [userInput, setUserInput] = useState(sessionUserInput || "");
+    const getValue = (event) => {
+      setUserInput(event.target.value.toLowerCase());
+      window.sessionStorage.setItem("search", event.target.value.toLowerCase());
+    };
+
+    const searchedMovies = movies.filter((movie) => {
+      return movie.title.toLowerCase().includes(userInput);
+    });
+
     // MediumCoverImg가 없을 때 대체 이미지를 넣는 함수
     const handleMediumCoverImgError = (event) => {
         event.target.src = "https://t3.ftcdn.net/jpg/00/62/26/78/360_F_62267871_t1n8LSkrFSL2t1aQSyilyfVpC21wQx59.jpg";
@@ -156,13 +169,15 @@ function Home({checked, toggleTheme}) {
     console.log(genreSelected);
     // console.log(sortSelected);
     // console.log(sorted);
-    console.log(movies);
+    console.log(userInput);
 
     useEffect(() => {
       if(isRanked === "yes") {
         setsortSelected(null);
+        setUserInput("");
         window.sessionStorage.removeItem("sortSelected");
         window.sessionStorage.removeItem("sorted");
+        window.sessionStorage.removeItem("search");
         if(genreSelected) { // Rank(O) + Genre(O) + Rating(O)
             fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=download_count&genre=${genreSelected}`).then(response => response.json()).then(json => {
               setMovies(json.data.movies);
@@ -205,8 +220,12 @@ function Home({checked, toggleTheme}) {
             <Container fluid>
               <Genres
                 movies={movies}
+                userInput={userInput}
+                searchedMovies={searchedMovies}
                 genreSelected={genreSelected}
-                selectGenre={selectGenre}/>
+                selectGenre={selectGenre}
+                getValue={getValue}
+                isRanked={isRanked}/>
               <RankSort
                 rank={rank}
                 sortSelected={sortSelected}
@@ -216,6 +235,8 @@ function Home({checked, toggleTheme}) {
                 isRanked={isRanked}/>
               <MovieList
                 movies={movies}
+                userInput={userInput}
+                searchedMovies={searchedMovies}
                 isRanked={isRanked}
                 handleMediumCoverImgError={handleMediumCoverImgError}/>
               <ScrollHome/>
