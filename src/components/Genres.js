@@ -1,22 +1,31 @@
-import { Container, Form, Nav } from "react-bootstrap";
+import { Button, Container, Form, InputGroup, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-function Genres({movies, userInput, searchedMovies, genreSelected, selectGenre, getValue, isRanked}) {
+function Genres({movies, userInput, searchedMovies, genreSelected, selectGenre, getValue, reset, isRanked}) {
     const genres = ["Action", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical", "Mystery", "Reality-TV", "Romance", "Sci-Fi", "Sport", "Talk-Show", "Thriller", "War", "Western"];
 
     return (
         <Container>
             <div className="d-flex justify-content-between mb-0 mt-5">
                 <Form>
-                    <Form.Group>
+                    <InputGroup>
                         <Form.Control
-                            id="search" 
-                            type="email" 
+                            id="search"
+                            aria-describedby="basic-addon1" 
+                            type="search" 
                             placeholder="Search..."
                             value={userInput ? userInput : ""}
                             onChange={getValue}
                             {...(isRanked === "yes" ? {disabled:true} : {})}/>
-                    </Form.Group>
+                        <Button 
+                            variant="secondary" 
+                            id="button-addon1"
+                            type="reset"
+                            onClick={reset}
+                            {...(isRanked === "yes" ? {disabled:true} : {})}>
+                            Reset
+                        </Button>
+                    </InputGroup>
                 </Form>
                 <div 
                     className={(window.localStorage.getItem("theme") === "lightTheme") ? "badge bg-dark fs-4 ms-3" : "badge bg-light text-dark fs-4 ms-3"}>
@@ -30,10 +39,11 @@ function Genres({movies, userInput, searchedMovies, genreSelected, selectGenre, 
                 id="genreTab">
                 {genres.map((genre)=>
                     <Nav.Item key={genre}>
-                        <Nav.Link 
+                        <Nav.Link
+                            {...(genreSelected === genre ? {active:true} : {})}
                             eventKey={genre} 
                             onClick={selectGenre} 
-                            className={(genreSelected === genre) ? "navLink active" : "navLink"}>
+                            className="navLink">
                                 {genre}
                         </Nav.Link>
                     </Nav.Item>)}
@@ -46,9 +56,10 @@ Genres.propTypes = {
     movies: PropTypes.array.isRequired,
     userInput: PropTypes.string,
     searchedMovies: PropTypes.array,
-    genreSelected: PropTypes.string.isRequired,
+    genreSelected: PropTypes.string,
     selectGenre: PropTypes.func.isRequired,
     getValue: PropTypes.func.isRequired,
+    reset: PropTypes.func.isRequired,
     isRanked: PropTypes.string.isRequired,
 };
 

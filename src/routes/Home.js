@@ -16,10 +16,16 @@ function Home({checked, toggleTheme}) {
     const [movies, setMovies] = useState([]);
 
     const sessionGenre = window.sessionStorage.getItem("genre");
-    const [genreSelected, setGenreSelected] = useState(sessionGenre || "Action");
+    const [genreSelected, setGenreSelected] = useState(sessionGenre || "");
     const selectGenre = (event) => {
-      setGenreSelected(event.target.innerText);
-      window.sessionStorage.setItem("genre", event.target.innerText);
+      if(event.target.innerText === genreSelected) {
+        setGenreSelected("");
+        document.querySelectorAll(".navLink").forEach((genre) => genre.classList.remove("active"));
+        window.sessionStorage.removeItem("genre");
+      } else {
+        setGenreSelected(event.target.innerText);
+        window.sessionStorage.setItem("genre", event.target.innerText);
+      }
     }; 
 
     const sessionSortSelected = window.sessionStorage.getItem("sortSelected");
@@ -152,13 +158,22 @@ function Home({checked, toggleTheme}) {
     const sessionUserInput = window.sessionStorage.getItem("search");
     const [userInput, setUserInput] = useState(sessionUserInput || "");
     const getValue = (event) => {
-      setUserInput(event.target.value.toLowerCase());
-      window.sessionStorage.setItem("search", event.target.value.toLowerCase());
+      setUserInput(event.target.value.replace(/\s/g,'').toLowerCase());
+      window.sessionStorage.setItem("search", event.target.value.replace(/\s/g,'').toLowerCase());
     };
-
+    
     const searchedMovies = movies.filter((movie) => {
       return movie.title.toLowerCase().includes(userInput);
     });
+    
+    if(searchedMovies.length === 0) {
+      window.sessionStorage.removeItem("search");
+    }
+
+    const reset = () => {
+        setUserInput("");
+        window.sessionStorage.removeItem("search");
+    };
 
     // MediumCoverImg가 없을 때 대체 이미지를 넣는 함수
     const handleMediumCoverImgError = (event) => {
@@ -166,10 +181,10 @@ function Home({checked, toggleTheme}) {
     };
     
     // console.log(isRanked);
-    console.log(genreSelected);
+    // console.log(genreSelected);
     // console.log(sortSelected);
     // console.log(sorted);
-    console.log(userInput);
+    // console.log(userInput);
 
     useEffect(() => {
       if(isRanked === "yes") {
@@ -225,8 +240,10 @@ function Home({checked, toggleTheme}) {
                 genreSelected={genreSelected}
                 selectGenre={selectGenre}
                 getValue={getValue}
+                reset={reset}
                 isRanked={isRanked}/>
               <RankSort
+                searchedMovies={searchedMovies}
                 rank={rank}
                 sortSelected={sortSelected}
                 sortSelect={sortSelect}

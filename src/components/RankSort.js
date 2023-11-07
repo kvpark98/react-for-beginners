@@ -1,7 +1,7 @@
 import { Button, Container, Dropdown, DropdownButton, Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-function RankSort({rank, sortSelected, sortSelect, sorted, sort, isRanked}) {
+function RankSort({searchedMovies, rank, sortSelected, sortSelect, sorted, sort, isRanked}) {
     return (
         <Container>
             <Form className="d-flex justify-content-between">
@@ -13,7 +13,7 @@ function RankSort({rank, sortSelected, sortSelect, sorted, sort, isRanked}) {
                     {...(isRanked === "yes" ? {defaultChecked:true} : {defaultChecked:false})}/>
                 <div className="d-flex">
                     <DropdownButton 
-                        {...(isRanked === "yes" ? {disabled : true} : {})}
+                        {...((isRanked === "yes") || (searchedMovies.length === 0) ? {disabled : true} : {})}
                         id="dropdown-basic-button"
                         title={sortSelected ? sortSelected : "Sort"} 
                         variant="dark">
@@ -39,7 +39,7 @@ function RankSort({rank, sortSelected, sortSelect, sorted, sort, isRanked}) {
                         </Dropdown.Item>
                     </DropdownButton>
                     <Button 
-                        {...(isRanked === "yes" ? {disabled : true} : {})}
+                        {...((isRanked === "yes") || (searchedMovies.length === 0) ? {disabled : true} : {})}
                         id="dropdown-basic-button"
                         className="ms-2"
                         variant="dark"
@@ -62,6 +62,7 @@ function RankSort({rank, sortSelected, sortSelect, sorted, sort, isRanked}) {
 };
 
 RankSort.propTypes = {
+    searchedMovies: PropTypes.array,
     rank: PropTypes.func.isRequired,
     sortSelected: PropTypes.string,
     sortSelect: PropTypes.func.isRequired,
