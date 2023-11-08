@@ -1,8 +1,26 @@
 import { Button, Container, Form, InputGroup, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { useEffect, useMemo, useState } from "react";
 
 function Genres({movies, userInput, searchedMovies, genreSelected, selectGenre, getValue, reset, isRanked}) {
-    const genres = ["Action", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical", "Mystery", "Reality-TV", "Romance", "Sci-Fi", "Sport", "Talk-Show", "Thriller", "War", "Western"];
+    const genres = useMemo(() => {
+        return ["Action", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical", "Mystery", "Reality-TV", "Romance", "Sci-Fi", "Sport", "Talk-Show", "Thriller", "War", "Western"];
+    }, []) 
+
+    const [allSearchedMovies, setAllSearchedMovies] = useState([]);
+    useEffect(() => {
+        if(!genreSelected) {
+            genres.forEach((genre) => {
+                fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=like_count&genre=${genre}`).then(response => response.json()).then(json => {
+                    setAllSearchedMovies(json.data.movies);
+                }).catch(error => {
+                    console.log("error", error)
+                })
+            });
+        }
+    }, [genreSelected, genres])
+
+    console.log(allSearchedMovies);
 
     return (
         <Container>
