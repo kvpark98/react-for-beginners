@@ -108,8 +108,8 @@ function App() {
     }
   };
 
-  console.log(themeMode);
-  console.log(checked);
+  // console.log(themeMode);
+  // console.log(checked);
 
   return (
     <ThemeProvider theme={theme}>

@@ -1,36 +1,17 @@
 import { Button, Container, Form, InputGroup, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
-import { useEffect, useMemo, useState } from "react";
 
-function Genres({movies, userInput, searchedMovies, genreSelected, selectGenre, getValue, reset, isRanked}) {
-    const genres = useMemo(() => {
-        return ["Action", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical", "Mystery", "Reality-TV", "Romance", "Sci-Fi", "Sport", "Talk-Show", "Thriller", "War", "Western"];
-    }, []) 
-
-    const [allSearchedMovies, setAllSearchedMovies] = useState([]);
-    useEffect(() => {
-        if(!genreSelected) {
-            genres.forEach((genre) => {
-                fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=like_count&genre=${genre}`).then(response => response.json()).then(json => {
-                    setAllSearchedMovies(json.data.movies);
-                }).catch(error => {
-                    console.log("error", error)
-                })
-            });
-        }
-    }, [genreSelected, genres])
-
-    console.log(allSearchedMovies);
+function Genres({movies, genres, userInput, searchedMovies, genreSelected, selectGenre, getValue, preventDefault, reset, isRanked}) {
 
     return (
         <Container>
             <div className="d-flex justify-content-between mb-0 mt-5">
-                <Form>
+                <Form onSubmit={preventDefault}>
                     <InputGroup>
                         <Form.Control
                             id="search"
                             aria-describedby="basic-addon1" 
-                            type="search" 
+                            type="search"
                             placeholder="Search..."
                             value={userInput ? userInput : ""}
                             onChange={getValue}
@@ -72,11 +53,13 @@ function Genres({movies, userInput, searchedMovies, genreSelected, selectGenre, 
 
 Genres.propTypes = {
     movies: PropTypes.array.isRequired,
+    genres: PropTypes.array.isRequired,
     userInput: PropTypes.string,
     searchedMovies: PropTypes.array,
     genreSelected: PropTypes.string,
     selectGenre: PropTypes.func.isRequired,
     getValue: PropTypes.func.isRequired,
+    preventDefault: PropTypes.func.isRequired,
     reset: PropTypes.func.isRequired,
     isRanked: PropTypes.string.isRequired,
 };

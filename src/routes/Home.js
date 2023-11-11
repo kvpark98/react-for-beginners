@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useMemo} from "react";
 import Header from "../components/Header";
 import { Container } from "react-bootstrap";
 import Footer from "../components/Footer";
@@ -101,7 +101,7 @@ function Home({checked, toggleTheme}) {
     } else if(sortSelected === "Upload Date") {
         if(sorted === "descending") {
           movies.sort((a, b) => {
-            if(a.date_uploaded && a.date_uploaded.slice(0, 10) === b.date_uploaded.slice(0, 10)) {
+            if(a.date_uploaded && b.date_uploaded && a.date_uploaded.slice(0, 10) === b.date_uploaded.slice(0, 10)) {
               return new Date(b.year) - new Date(a.year);
             } else {
               return new Date(b.date_uploaded) - new Date(a.date_uploaded);
@@ -109,7 +109,7 @@ function Home({checked, toggleTheme}) {
           });
         } else {
           movies.sort((a, b) => {
-            if(a.date_uploaded && a.date_uploaded.slice(0, 10) === b.date_uploaded.slice(0, 10)) {
+            if(a.date_uploaded && b.date_uploaded && a.date_uploaded.slice(0, 10) === b.date_uploaded.slice(0, 10)) {
               return new Date(a.year) - new Date(b.year);
             } else {
               return new Date(a.date_uploaded) - new Date(b.date_uploaded);
@@ -155,13 +155,19 @@ function Home({checked, toggleTheme}) {
     }
 
     // 검색 과정
+    const genres = useMemo(() => {
+        return ["Action", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical", "Mystery", "Reality-TV", "Romance", "Sci-Fi", "Sport", "Talk-Show", "Thriller", "War", "Western"];
+    }, []);
+
     const sessionUserInput = window.sessionStorage.getItem("search");
     const [userInput, setUserInput] = useState(sessionUserInput || "");
     const getValue = (event) => {
       setUserInput(event.target.value.replace(/\s/g,'').toLowerCase());
       window.sessionStorage.setItem("search", event.target.value.replace(/\s/g,'').toLowerCase());
     };
-    
+    const preventDefault = (event) => {
+      event.preventDefault();
+    }
     const searchedMovies = movies.filter((movie) => {
       return movie.title.toLowerCase().includes(userInput);
     });
@@ -169,6 +175,7 @@ function Home({checked, toggleTheme}) {
     if(searchedMovies.length === 0) {
       window.sessionStorage.removeItem("search");
     }
+    // console.log(movies);
 
     const reset = () => {
         setUserInput("");
@@ -179,13 +186,14 @@ function Home({checked, toggleTheme}) {
     const handleMediumCoverImgError = (event) => {
         event.target.src = "https://t3.ftcdn.net/jpg/00/62/26/78/360_F_62267871_t1n8LSkrFSL2t1aQSyilyfVpC21wQx59.jpg";
     };
-    
+
     // console.log(isRanked);
     // console.log(genreSelected);
     // console.log(sortSelected);
     // console.log(sorted);
     // console.log(userInput);
-
+    // console.log(searchedMovies);
+  
     useEffect(() => {
       if(isRanked === "yes") {
         setsortSelected(null);
@@ -214,15 +222,14 @@ function Home({checked, toggleTheme}) {
             }  
           );
         } else { // Rank(X) + Genre(X) + Rating(X)
-            fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=like_count`).then(response => response.json()).then(json => {
-              setMovies(json.data.movies);
-              setLoading(false);
-            }  
-          );
-        }  
+              fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.2&sort_by=like_count`).then(response => response.json()).then(json => {
+                setMovies(json.data.movies);
+                setLoading(false);
+              });
+        }
       }
     }, [isRanked, genreSelected]);
-   
+
     return (
       <div className="h-100">
         <Header
@@ -235,11 +242,13 @@ function Home({checked, toggleTheme}) {
             <Container fluid>
               <Genres
                 movies={movies}
+                genres={genres}
                 userInput={userInput}
                 searchedMovies={searchedMovies}
                 genreSelected={genreSelected}
                 selectGenre={selectGenre}
                 getValue={getValue}
+                preventDefault={preventDefault}
                 reset={reset}
                 isRanked={isRanked}/>
               <RankSort
@@ -253,6 +262,7 @@ function Home({checked, toggleTheme}) {
               <MovieList
                 movies={movies}
                 userInput={userInput}
+                genreSelected={genreSelected}
                 searchedMovies={searchedMovies}
                 isRanked={isRanked}
                 handleMediumCoverImgError={handleMediumCoverImgError}/>
