@@ -23,10 +23,10 @@ function ScrollHome() {
             window.sessionStorage.setItem("homeScrollLocation", scrollLocation);
         };
         const homeScrollLocation = window.sessionStorage.getItem("homeScrollLocation");
+        window.scrollTo(0, homeScrollLocation);
         const timer = setInterval(() => {
             window.addEventListener('scroll', handleShowButton);
         }, 100);
-        window.scrollTo(0, homeScrollLocation);
         return () => {
             clearInterval(timer);
             window.removeEventListener('scroll', handleShowButton);

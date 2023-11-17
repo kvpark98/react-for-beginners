@@ -6,7 +6,7 @@ function TrailerVideo({trailer_code}) {
     return (
         <Container>
             <div>
-                <h2 className="mb-4 pt-3 pb-3 border-bottom">Trailer</h2>
+                <h2 className="mb-4 py-3 border-bottom">Trailer</h2>
                 <div className="ratio ratio-16x9 m-auto" 
                      style={{maxWidth: 800}}>
                     <iframe 

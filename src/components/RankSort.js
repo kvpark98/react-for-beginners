@@ -18,6 +18,11 @@ function RankSort({searchedMovies, rank, sortSelected, sortSelect, sorted, sort,
                         title={sortSelected ? sortSelected : "Sort"} 
                         variant="dark">
                         <Dropdown.Item 
+                            eventKey="Default" 
+                            onClick={sortSelect}>
+                                Default
+                        </Dropdown.Item>
+                        <Dropdown.Item 
                             eventKey="Title" 
                             onClick={sortSelect}>
                                 Title

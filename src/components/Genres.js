@@ -2,7 +2,6 @@ import { Button, Container, Form, InputGroup, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 function Genres({movies, genres, userInput, searchedMovies, genreSelected, selectGenre, getValue, preventDefault, reset, isRanked}) {
-
     return (
         <Container>
             <div className="d-flex justify-content-between mb-0 mt-5">
@@ -17,8 +16,7 @@ function Genres({movies, genres, userInput, searchedMovies, genreSelected, selec
                             onChange={getValue}
                             {...(isRanked === "yes" ? {disabled:true} : {})}/>
                         <Button 
-                            variant="secondary" 
-                            id="button-addon1"
+                            variant="secondary"
                             type="reset"
                             onClick={reset}
                             {...(isRanked === "yes" ? {disabled:true} : {})}>
@@ -26,15 +24,14 @@ function Genres({movies, genres, userInput, searchedMovies, genreSelected, selec
                         </Button>
                     </InputGroup>
                 </Form>
-                <div 
-                    className={(window.localStorage.getItem("theme") === "lightTheme") ? "badge bg-dark fs-4 ms-3" : "badge bg-light text-dark fs-4 ms-3"}>
+                <div className={(window.localStorage.getItem("theme") === "lightTheme") ? "badge bg-dark fs-4 ms-3" : "badge bg-light text-dark fs-4 ms-3"}>
                     <em>{userInput ? searchedMovies.length : movies.length}</em>
                 </div>
             </div>
             <Nav 
                 justify 
                 variant="pills" 
-                className="mt-4 mb-4 border border-2 rounded-3"
+                className="my-4 border border-2 rounded-3"
                 id="genreTab">
                 {genres.map((genre)=>
                     <Nav.Item key={genre}>

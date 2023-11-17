@@ -4,8 +4,7 @@ import styles from "../App.module.css";
 
 function TitleRateImg({title, year, genres, rating, medium_cover_image, like, count, quality, url, handleMediumCoverImgError, isPc, isTablet, isMobile}) {
     return (
-        <Container 
-            className={styles.titleRateImgContainer}>
+        <Container className={styles.titleRateImgContainer}>
                 {isMobile ?
                     <div className="d-flex justify-content-center fw-bolder">
                         <div className={styles.titleRateImgElementsMobile}>
@@ -24,8 +23,10 @@ function TitleRateImg({title, year, genres, rating, medium_cover_image, like, co
                             {genres ?
                                 <div className={styles.titleRateImgGenreMobile}>
                                      {genres.map((genre) => 
-                                        <span key={genre} className={(genres.length > 1 && genre !== genres[genres.length - 1]) ? "badge bg-secondary fs-6 me-2 mb-2" : "badge bg-secondary fs-6"}>
-                                            {genre}
+                                        <span 
+                                            key={genre} 
+                                            className={(genres.length > 1 && genre !== genres[genres.length - 1]) ? "badge bg-secondary fs-6 me-2 mb-2" : "badge bg-secondary fs-6"}>
+                                                {genre}
                                         </span>)}
                                 </div>
                                 : 
@@ -34,7 +35,7 @@ function TitleRateImg({title, year, genres, rating, medium_cover_image, like, co
                                 <div>
                                     {(count || count === 0) ? 
                                         <div className="badge bg-success d-block mb-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" className="bi bi-download text-primary" viewBox="0 0 16 16">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
                                                 <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
                                                 <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
                                             </svg>
@@ -82,7 +83,7 @@ function TitleRateImg({title, year, genres, rating, medium_cover_image, like, co
                         </div>
                     </div>
                     :
-                    <div className="d-flex justify-content-between mt-5 mb-5 fw-bolder">  
+                    <div className="d-flex justify-content-between my-5 fw-bolder">  
                         <div {...(isPc && {className:`${styles.titleRateImgElementsPc}`})}
                              {...(isTablet && {className:`${styles.titleRateImgElementsTablet}`})}>
                             {title ? 
@@ -105,7 +106,7 @@ function TitleRateImg({title, year, genres, rating, medium_cover_image, like, co
                                         <span 
                                             key={genre} 
                                             className={(genres.length > 1 && genre !== genres[genres.length - 1]) ? "badge bg-secondary fs-6 me-2 mb-2" : "badge bg-secondary fs-6"}>
-                                            {genre} 
+                                                {genre} 
                                         </span>)}
                                 </div>
                                 :
@@ -113,7 +114,7 @@ function TitleRateImg({title, year, genres, rating, medium_cover_image, like, co
                             <div className={styles.titleRateImgDownloadLikeRating}>
                                 {(count || count === 0) ? 
                                     <div className="badge bg-success d-block mb-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" className="bi bi-download text-primary" viewBox="0 0 16 16">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
                                             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
                                             <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
                                         </svg>

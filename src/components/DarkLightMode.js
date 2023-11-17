@@ -16,6 +16,6 @@ function DarkLightMode({checked, toggleTheme}) {
 DarkLightMode.propTypes = {
     checked: PropTypes.string,
     toggleTheme: PropTypes.func.isRequired
-  };
+};
 
 export default DarkLightMode;

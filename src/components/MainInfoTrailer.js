@@ -6,7 +6,7 @@ function MainInfoTrailer({trailer_code, isActive, active}) {
         <Container>
             <Nav fill
                  variant="tabs" 
-                 className="mt-4 mb-4 pt-3">
+                 className="my-4 pt-4">
                 <Nav.Item>
                     <Nav.Link 
                         eventKey="Main Information" 
