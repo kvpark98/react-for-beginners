@@ -19,8 +19,8 @@ function Genres({movies, genres, userInput, searchedMovies, genreSelected, selec
                             variant="secondary"
                             type="reset"
                             onClick={reset}
-                            {...(isRanked === "yes" ? {disabled:true} : {})}>
-                            Reset
+                            {...((isRanked === "yes") || (!userInput) ? {disabled:true} : {})}>
+                                Reset
                         </Button>
                     </InputGroup>
                 </Form>

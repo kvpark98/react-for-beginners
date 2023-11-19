@@ -122,31 +122,17 @@ body {
     background-color: black;
 }
 
+.backGroundTitleRateImgMobile {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 540px;
+    background-color: black;
+}
+
 .titleRateImgContainer {
     color: white;
     z-index: 1;
-}
-
-.titleRateImgElementsMobile {
-    position: absolute;
-    transform: translate(-50%,-50%);
-    top: 50%;
-    left: 50%;
-    width: 300px;
-}
-
-.titleRateImgTitleMobile {
-    margin-bottom: 1.5rem;
-    text-align: center;
-    text-shadow: gray 3px 2px 2px;
-    font-size: 2em;
-}
-
-.titleRateImgGenreMobile {
-    margin: 0;
-    margin-bottom: 0.25rem;
-    text-align: center;
-    font-size: 1.01em;
 }
 
 .titleRateImgElementsPc {
@@ -157,26 +143,44 @@ body {
     width: 400px;
 }
 
+.titleRateImgElementsMobile {
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    width: 300px;
+}
+
 .titleRateImgTitlePc {
     margin-bottom: 1rem;
     text-shadow: gray 3px 2px 2px;
-    font-size: 2.7em;
+    font-size: 2.6em;
 }
 
 .titleRateImgTitleTablet {
     margin-bottom: 1rem;
     text-shadow: gray 3px 2px 2px;
-    font-size: 2.4em;
+    font-size: 2.25em;
+}
+
+.titleRateImgTitleMobile {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-shadow: gray 3px 2px 2px;
+    font-size: 1.9em;
 }
 
 .titleRateImgGenrePc {
     margin: 0;
-    font-size: 1.2em;
 }
 
 .titleRateImgGenreTablet {
     margin: 0;
-    font-size: 1.02em;
+}
+
+.titleRateImgGenreMobile {
+    margin: 0;
+    text-align: center;
 }
 
 .titleRateImgDownloadLikeRating {

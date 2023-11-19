@@ -59,7 +59,7 @@ function Detail({checked, toggleTheme}) {
                 : 
                 <div className={styles.wrap}>
                     <div>
-                        <div className={styles.backGroundTitleRateImg}>
+                        <div {...(isMobile ? {className: `${styles.backGroundTitleRateImgMobile}`} : {className: `${styles.backGroundTitleRateImg}`})}>
                             <BackgroundImage 
                                 background_image={movie.background_image}
                                 medium_cover_image={movie.medium_cover_image}

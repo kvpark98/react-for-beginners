@@ -179,7 +179,7 @@ function Home({checked, toggleTheme}) {
     const [userInput, setUserInput] = useState(sessionUserInput || "");
     const getValue = (event) => {
       setUserInput(event.target.value.replace(/\s/g,'').toLowerCase());
-      window.sessionStorage.setItem("search", event.target.value.replace(/\s/g,'').toLowerCase());
+      window.sessionStorage.setItem("search", event.target.value || document.getElementById('search').value);
     };
 
     const preventDefault = (event) => {
@@ -189,10 +189,6 @@ function Home({checked, toggleTheme}) {
     const searchedMovies = movies.filter((movie) => {
       return movie.title.toLowerCase().includes(userInput);
     });
-    
-    if(searchedMovies.length === 0) {
-      window.sessionStorage.removeItem("search");
-    }
 
     const reset = () => {
       setUserInput("");
