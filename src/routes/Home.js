@@ -179,7 +179,7 @@ function Home({checked, toggleTheme}) {
     const [userInput, setUserInput] = useState(sessionUserInput || "");
     const getValue = (event) => {
       setUserInput(event.target.value.replace(/\s/g,'').toLowerCase());
-      window.sessionStorage.setItem("search", event.target.value || document.getElementById('search').value);
+      window.sessionStorage.setItem("search", event.target.value.replace(/\s/g,'').toLowerCase());
     };
 
     const preventDefault = (event) => {
