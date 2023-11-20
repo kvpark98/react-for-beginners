@@ -37,6 +37,7 @@ function Genres({movies, genres, userInput, searchedMovies, genreSelected, selec
                     <Nav.Item key={genre}>
                         <Nav.Link
                             {...(genreSelected === genre ? {active:true} : {})}
+                            id={genre}
                             eventKey={genre} 
                             onClick={selectGenre} 
                             className="navLink">

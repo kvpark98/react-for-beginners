@@ -21,10 +21,11 @@ function Home({checked, toggleTheme}) {
     const selectGenre = (event) => {
       if(event.target.innerText === genreSelected) {
         setGenreSelected("");
-        document.querySelectorAll(".navLink").forEach((genre) => genre.classList.remove("active"));
+        document.getElementById(event.target.innerText).classList.remove("active");
         window.sessionStorage.removeItem("genre");
       } else {
           setGenreSelected(event.target.innerText);
+          document.getElementById(event.target.innerText).classList.add("active");
           window.sessionStorage.setItem("genre", event.target.innerText);
       }
     };
